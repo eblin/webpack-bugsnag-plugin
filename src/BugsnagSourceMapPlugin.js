@@ -74,10 +74,14 @@ class BugsnagSourceMapPlugin extends CommonBugsnagPlugin {
     if (appVersion) {
       return Promise.resolve(uploadOptions);
     } else {
-      return this.getProjectDetails(compilation).then(details => {
-        uploadOptions.appVersion = details.version;
-        return uploadOptions;
-      });
+      // do not include an appVersion if not desired
+        delete uploadOptions.appVersion;
+        return Promise.resolve(uploadOptions);
+        // TODO: fix this magic OR remove it completely, git remote get-url crashing on server
+      // return this.getProjectDetails(compilation).then(details => {
+      //   uploadOptions.appVersion = details.version;
+      //   return uploadOptions;
+      // });
     }
   }
 
