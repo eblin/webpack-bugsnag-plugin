@@ -37,14 +37,17 @@ class BugsnagSourceMapPlugin extends CommonBugsnagPlugin {
     publicPath += /\/$/.test(publicPath) ? '' : '/';
 
     stats.chunks.forEach(chunk => {
-      const [ file ] = chunk.files.filter(file => /\.js$/.test(file));
+      let [ file ] = chunk.files.filter(file => /\.js$/.test(file));
       const [ sourceMap ] = chunk.files.filter(file => /\.js\.map$/.test(file));
+
+      // remove slashes just in case our bundles are something like /js/blahblah.js
+      file = file.replace(/^\/+/g, '');
 
       if (sourceMap) {
         sourceMaps.push({
           url: publicPath + file,
-          file: path.resolve(outputPath, file),
-          sourceMap: path.resolve(outputPath, sourceMap),
+          file: path.join(outputPath, file),
+          sourceMap: path.join(outputPath, sourceMap),
         });
       }
     });
