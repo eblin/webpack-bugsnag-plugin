@@ -1,7 +1,7 @@
 {
   "name": "webpack-bugsnag-plugin",
   "description": "A collection of webpack plugins for integrating with Bugsnag",
-  "version": "0.0.11",
+  "version": "0.1.4",
   "main": "lib/index.js",
   "keywords": [
     "webpack",
@@ -27,10 +27,12 @@
     "start": "npm run build -- --watch",
     "build": "babel src -d lib",
     "prepare": "npm run build"
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "bugsnag-sourcemaps": "^0.0.7",
-    "pkg-up": "^1.0.0",
+    "bugsnag-sourcemaps": "^1.0.1",
+    "debug": "^3.1.0",
+    "pkg-up": "1.0.0",
     "request": "^2.79.0",
     "request-promise-native": "^1.0.3"
   },
